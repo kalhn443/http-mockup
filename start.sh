@@ -17,6 +17,7 @@ mkdir -p /var/log/supervisor /var/log/nginx
 # Set Smocker environment variables
 export SMOCKER_MOCK_SERVER_LISTEN_PORT=8080
 export SMOCKER_CONFIG_LISTEN_PORT=8081
+export SMOCKER_STATIC_FILES=/usr/local/bin/
 export SMOCKER_LOG_LEVEL=info
 
 echo "Configuration ready. Starting services..."
