@@ -12,7 +12,7 @@ FROM nginx:alpine
 RUN apk add --no-cache supervisor curl
 
 # Copy Smocker binary from official image
-COPY --from=smocker-source /usr/local/bin/smocker /usr/local/bin/smocker
+COPY --from=smocker-source /opt/ /usr/local/bin/smocker
 RUN chmod +x /usr/local/bin/smocker
 
 # Copy nginx configuration
