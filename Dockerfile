@@ -1,11 +1,19 @@
 FROM nginx:alpine
 
-# Install supervisor และ wget
-RUN apk add --no-cache supervisor wget curl
+# Install supervisor และ curl
+RUN apk add --no-cache supervisor curl
 
-# Download Smocker binary
-RUN wget -O /usr/local/bin/smocker https://github.com/smocker-dev/smocker/releases/latest/download/smocker-linux-amd64 \
-    && chmod +x /usr/local/bin/smocker
+# Install Smocker using the official Docker image approach
+# We'll extract the binary from the official image
+FROM ghcr.io/smocker-dev/smocker:latest AS smocker-source
+
+FROM nginx:alpine
+# Install supervisor และ curl
+RUN apk add --no-cache supervisor curl
+
+# Copy Smocker binary from official image
+COPY --from=smocker-source /usr/local/bin/smocker /usr/local/bin/smocker
+RUN chmod +x /usr/local/bin/smocker
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
