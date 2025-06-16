@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: smocker-proxy
+    env: docker
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    plan: free
+    
+    # Health check configuration
+    healthCheckPath: /health
+    
+    # Environment variables
+    envVars:
+      - key: SMOCKER_LOG_LEVEL
+        value: info
+      - key: SMOCKER_PERSIST_SESSIONS
+        value: "true"
+      - key: SMOCKER_HISTORY_RETENTION
+        value: 168h
+    
+    # Auto deploy settings
+    autoDeploy: true
+    
+    # Build settings
+    buildFilter:
+      paths:
+        - Dockerfile
+        - nginx.conf
+        - start.sh
+        - render.yaml
